@@ -90,6 +90,19 @@ Car.prototype.fill = function(gallons) {
   return this.tank = this.tank + gallons;
 }
 
+//'drive' method(adds distance to odometer, removes gas from tank)
+Car.prototype.drive = function(distance) {
+  if (this.tank > 0) {
+    this.odometer = this.odometer + distance;
+    const gallonsUsed = distance / this.milesPerGallon;
+    this.tank = this.tank - gallonsUsed;
+  } else {
+    const drivableMiles = distance - this.tank * this.milesPerGallon;
+    this.odometer = this.odometer + drivableMiles;
+    return `I ran out of fuel at ${this.odometer} miles!`;
+  }
+}
+
 /*
   TASK 3
     - Write a Baby constructor subclassing Person.
