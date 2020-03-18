@@ -107,7 +107,7 @@ Baby.prototype.play = function() {
 
   In your own words explain the four principles for the "this" keyword below:
 
-  1. 
+  1. When "this" is defined in the global scope, it refers to whatever the Javascript is being run in. So, if the JS is running in a browser, "this" refers to the window object.
 
   2. Basically, if you call a method on an object, and that method uses the "this" keyword somewhere in it, then the "this" keyword refers to the object the method was called on. 
     example:
@@ -116,7 +116,7 @@ Baby.prototype.play = function() {
 
   3. If you use an object constructor to make a new instance of an object, then the "this" keyword that is used in the object constructor refers to the new instance of that object. This is true for every new instance you make.
 
-  4.
+  4. When you use the call or apply methods you can tell "this" what to refer to. You can basically override what "this" would normally be pointing to.
 
 */
 
