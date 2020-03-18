@@ -39,22 +39,26 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
+//Person Object Constructor(takes two parameters and has an empty array)
 function Person(name, age) {
   this.name = name;
   this.age = age;
   this.stomach = [];
 }
 
+//'eat' method(adds items to the empty array)
 Person.prototype.eat = function(someFood) {
   if (this.stomach.length <= 9) {
     return this.stomach.push(someFood);
   }
 }
 
+//'poop' method(empties the array)
 Person.prototype.poop = function() {
   this.stomach = [];
 }
 
+//'toString' method(returns person's name and age)
 Person.prototype.toString = function() {
   return `${this.name}, ${this.age}`;
 }
@@ -73,6 +77,7 @@ Person.prototype.toString = function() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
+//Car Object Constructor(takes two parameters, has tank and odometer both set to zero)
 function Car(model, milesPerGallon) {
   this.model = model;
   this.milesPerGallon = milesPerGallon;
@@ -80,6 +85,7 @@ function Car(model, milesPerGallon) {
   this.odometer = 0;
 }
 
+//'fill' method(adds gallons of gas to the tank property)
 Car.prototype.fill = function(gallons) {
   return this.tank = this.tank + gallons;
 }
@@ -91,13 +97,18 @@ Car.prototype.fill = function(gallons) {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
+
+//Baby Object Constructor - Subclass of Person Object Constructor
+//(takes three parameters)
 function Baby(name, age, favoriteToy) {
   Person.call(this, name, age);
   this.favoriteToy = favoriteToy;
 }
 
+//copied the methods from Person's prototype to Baby's prototype
 Baby.prototype = Object.create(Person.prototype);
 
+//'play' method(lets baby play with favoriteToy)
 Baby.prototype.play = function() {
   return `Playing with ${this.favoriteToy}`;
 }
