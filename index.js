@@ -39,8 +39,28 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
+//Person Object Constructor(takes two parameters and has an empty array)
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+  this.stomach = [];
+}
 
+//'eat' method(adds items to the empty array)
+Person.prototype.eat = function(someFood) {
+  if (this.stomach.length <= 9) {
+    return this.stomach.push(someFood);
+  }
+}
+
+//'poop' method(empties the array)
+Person.prototype.poop = function() {
+  this.stomach = [];
+}
+
+//'toString' method(returns person's name and age)
+Person.prototype.toString = function() {
+  return `${this.name}, ${this.age}`;
 }
 
 /*
@@ -57,8 +77,31 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
+//Car Object Constructor(takes two parameters, has tank and odometer both set to zero)
+function Car(model, milesPerGallon) {
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
+  this.tank = 0;
+  this.odometer = 0;
+}
 
+//'fill' method(adds gallons of gas to the tank property)
+Car.prototype.fill = function(gallons) {
+  return this.tank = this.tank + gallons;
+}
+
+//'drive' method(adds distance to odometer, removes gas from tank)
+Car.prototype.drive = function(distance) {
+  if (this.tank > 0) {
+    this.odometer = this.odometer + distance;
+    const gallonsUsed = distance / this.milesPerGallon;
+    this.tank = this.tank - gallonsUsed;
+  } else {
+    this.tank = Math.min(this.tank, 0)
+    const drivableMiles = distance - (-this.tank * this.milesPerGallon);
+    this.odometer = this.odometer + drivableMiles;
+    return `I ran out of fuel at ${this.odometer} miles!`;
+  }
 }
 
 /*
@@ -68,18 +111,38 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
 
+//Baby Object Constructor - Subclass of Person Object Constructor
+//(takes three parameters)
+function Baby(name, age, favoriteToy) {
+  Person.call(this, name, age);
+  this.favoriteToy = favoriteToy;
+}
+
+//copied the methods from Person's prototype to Baby's prototype
+Baby.prototype = Object.create(Person.prototype);
+
+//'play' method(lets baby play with favoriteToy)
+Baby.prototype.play = function() {
+  return `Playing with ${this.favoriteToy}`;
 }
 
 /* 
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+
+  1. When "this" is defined in the global scope, it refers to whatever the Javascript is being run in. So, if the JS is running in a browser, "this" refers to the window object.
+
+  2. Basically, if you call a method on an object, and that method uses the "this" keyword somewhere in it, then the "this" keyword refers to the object the method was called on. 
+    example:
+        kelly.sayHi(); ========> "this" refers to object 'kelly'
+        danny.sayHi(); ========> "this" refers to object 'danny'
+
+  3. If you use an object constructor to make a new instance of an object, then the "this" keyword that is used in the object constructor refers to the new instance of that object. This is true for every new instance you make.
+
+  4. When you use the call or apply methods you can tell "this" what to refer to. You can basically override what "this" would normally be pointing to.
+
 */
 
 
